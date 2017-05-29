@@ -1,0 +1,15 @@
+C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\Migrate\bin\Debug\Migrate.exe.config
+C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\Migrate\bin\Debug\Migrate.exe
+C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\Migrate\bin\Debug\Migrate.pdb
+C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\Migrate\bin\Debug\BinaryStorageOptions.dll
+C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\Migrate\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\Migrate\bin\Debug\Microsoft.Xrm.Sdk.dll
+C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\Migrate\bin\Debug\BinaryStorageOptions.pdb
+C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\Migrate\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\Migrate\bin\Debug\Microsoft.Xrm.Sdk.xml
+C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\Migrate\obj\Debug\Migrate.csprojResolveAssemblyReference.cache
+C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\Migrate\obj\Debug\Migrate.Main.resources
+C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\Migrate\obj\Debug\Migrate.Properties.Resources.resources
+C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\Migrate\obj\Debug\Migrate.csproj.GenerateResource.Cache
+C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\Migrate\obj\Debug\Migrate.exe
+C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\Migrate\obj\Debug\Migrate.pdb
