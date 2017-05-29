@@ -1,0 +1,10 @@
+﻿<Settings>
+	<!-- Azure storage account name -->
+	<Setting key="StorageAccount" value="" />
+	<!-- Azure storage account key -->
+	<Setting key="StorageKey" value="" />
+	<!-- If "Encryption" = "AES256" then this is the encryption key used. -->
+	<Setting key="AES256EncryptionKey" value="" />
+	<!-- If "Encryption" = "AES256" then this is the salt used to hash encryption key with. -->
+	<Setting key="AES256EncryptionKeySalt" value="" />
+</Settings>

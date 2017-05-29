@@ -1,0 +1,10 @@
+﻿<Settings>
+	<Setting key="ConfigurationProviderType" value="PluginStepConfigurationProvider" />
+	<Setting key="Provider Type" value="AzureFile" />
+	<Setting key="annotationContainer" value="crmannotations" />
+	<Setting key="annotationFolder" value="annotations" />
+	<Setting key="annotationShare" value="crm" />
+	<Setting key="activitymimeattachmentContainer" value="crmactivitymimeattachments" />
+	<Setting key="activitymimeattachmentFolder" value="activitymimeattachments" />
+	<Setting key="activitymimeattachmentShare" value="crm" />
+</Settings>
