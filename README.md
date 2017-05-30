@@ -10,7 +10,3 @@ Here are some features :
 * Nobody will know, UI/api works exactly as before :)
 
 See Wiki on how to configure setup the different versions and why you'd use said version.
-
-The old project with previous versions is still avialable while CodePlex allows here :
-
-[https://dynamicscrmbinarystorageoptions.codeplex.com/]
