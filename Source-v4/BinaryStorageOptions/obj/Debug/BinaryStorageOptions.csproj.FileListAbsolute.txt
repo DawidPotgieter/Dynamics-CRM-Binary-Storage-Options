@@ -1,9 +1,0 @@
-C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\BinaryStorageOptions\bin\Debug\BinaryStorageOptions.dll
-C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\BinaryStorageOptions\bin\Debug\BinaryStorageOptions.pdb
-C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\BinaryStorageOptions\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
-C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\BinaryStorageOptions\bin\Debug\Microsoft.Xrm.Sdk.dll
-C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\BinaryStorageOptions\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
-C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\BinaryStorageOptions\bin\Debug\Microsoft.Xrm.Sdk.xml
-C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\BinaryStorageOptions\obj\Debug\BinaryStorageOptions.csprojResolveAssemblyReference.cache
-C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\BinaryStorageOptions\obj\Debug\BinaryStorageOptions.dll
-C:\Development\GitHub\Dynamics-CRM-Binary-Storage-Options\Source-v4\BinaryStorageOptions\obj\Debug\BinaryStorageOptions.pdb
