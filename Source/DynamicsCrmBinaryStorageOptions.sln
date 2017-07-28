@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F53627B1-A358-41E0-B000-339EC58A6311}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\nuget.config = .nuget\nuget.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryStorageOptions", "BinaryStorageOptions\BinaryStorageOptions.csproj", "{ABF867DE-0471-473E-8CA0-EFAAE6F4761D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migrate", "Migrate\Migrate.csproj", "{CFCEDC52-C742-41C3-9A20-1BCA7A16BB6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryStorageOptions.Proxy", "BinaryStorageOptions.Proxy\BinaryStorageOptions.Proxy.csproj", "{5558463F-B99C-4FAF-BF9F-3739AE46816C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ABF867DE-0471-473E-8CA0-EFAAE6F4761D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABF867DE-0471-473E-8CA0-EFAAE6F4761D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABF867DE-0471-473E-8CA0-EFAAE6F4761D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABF867DE-0471-473E-8CA0-EFAAE6F4761D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFCEDC52-C742-41C3-9A20-1BCA7A16BB6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFCEDC52-C742-41C3-9A20-1BCA7A16BB6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFCEDC52-C742-41C3-9A20-1BCA7A16BB6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFCEDC52-C742-41C3-9A20-1BCA7A16BB6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5558463F-B99C-4FAF-BF9F-3739AE46816C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5558463F-B99C-4FAF-BF9F-3739AE46816C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5558463F-B99C-4FAF-BF9F-3739AE46816C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5558463F-B99C-4FAF-BF9F-3739AE46816C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

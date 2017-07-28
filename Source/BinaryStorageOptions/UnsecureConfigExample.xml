@@ -1,0 +1,45 @@
+﻿<Settings>
+	<!-- Valid value(s) are "PluginStepConfigurationProvider". -->
+	<Setting key="ConfigurationProviderType" value="PluginStepConfigurationProvider"/>
+	<!-- Valid values are defined in StorageProviderType enum. -->
+	<Setting key="Provider Type" value="AzureFile" />
+	<!-- 
+		Valid values are defined in CompressionProviderType enum.  
+		Defaults to "PassThrough" if it doesn't exist 
+	-->
+	<Setting key="Compression" value="PassThrough" />
+	<!-- 
+		This value defines at what point compression is useful (Default 1).  
+		Only used if "Compression" <> "PassThrough".
+		Valid values are between 0 and 1.  
+		0.95 for instance means the compressed file size must be 
+		at least 5% smaller or else compression isn't used for the file.
+	-->
+	<Setting key="CompressionThreshold" value="1" />
+	<!-- 
+		Valid values are defined in EncryptionProviderType enum.  
+		Defaults to "PassThrough" if it doesn't exist 
+	-->
+	<Setting key="Encryption" value="PassThrough" />
+	<!-- 
+		Valid values are defined in System.IO.Compression.CompressionLevel 
+		enum.  
+		Only used if "Compression" = "Zip". 
+		Defaults to "Optimal" if it doesn't exist. 
+	-->
+	<Setting key="ZipCompressionLevel" value="Optimal" />
+	<!-- 
+		Root is the container name for "AzureBlob" 
+		and share name for "AzureFile" 
+	-->
+	<Setting key="annotationRoot" value="crm" />
+	<!-- Optional folder path.  No leading/trailing / -->
+	<Setting key="annotationFolder" value="annotations" />
+	<!-- 
+		Root is the container name for "AzureBlob" 
+		and share name for "AzureFile" 
+	-->
+	<Setting key="activitymimeattachmentRoot" value="crm" />
+	<!-- Optional folder path.  No leading/trailing / -->
+	<Setting key="activitymimeattachmentFolder" value="activitymimeattachments" />
+</Settings>
