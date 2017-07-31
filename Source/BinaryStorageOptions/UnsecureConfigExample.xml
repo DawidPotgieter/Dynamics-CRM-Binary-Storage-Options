@@ -28,6 +28,8 @@
 		Defaults to "Optimal" if it doesn't exist. 
 	-->
 	<Setting key="ZipCompressionLevel" value="Optimal" />
+	<!-- When "Provider Type" = "Proxy", this value indicates the root uri where the proxy is hosted.  Ensure this is https. -->
+	<Setting key="ProxyUri" value="https://localhost:44325" />
 	<!-- 
 		Root is the container name for "AzureBlob" 
 		and share name for "AzureFile" 

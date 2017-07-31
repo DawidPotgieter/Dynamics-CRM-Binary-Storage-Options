@@ -15,6 +15,9 @@ namespace BinaryStorageOptions.Providers
 				case StorageProviderType.AzureFile:
 					storageProvider = new AzureFileStorageProvider((AzureFileStorageConfiguration)configurationProvider.Configuration);
 					break;
+				case StorageProviderType.Proxy:
+					storageProvider = new ProxyStorageProvider((ProxyStorageConfiguration)configurationProvider.Configuration);
+					break;
 			}
 			return new BinaryStorageProvider(configurationProvider, storageProvider);
 		}

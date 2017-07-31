@@ -25,32 +25,7 @@ namespace BinaryStorageOptions.Proxy.Providers
 					storageProvider = new FileSystemStorageProvider((FileSystemStorageConfiguration)configurationProvider.Configuration);
 					break;
 			}
-			//return new BinaryStorageProvider(configurationProvider, storageProvider);
 			return storageProvider;
-		}
-
-		public static ICompressionProvider GetCompressionProvider(CompressionProviderType providerType, IConfigurationProvider configurationProvider)
-		{
-			ICompressionProvider provider = new PassThroughCompressionProvider();
-			switch (providerType)
-			{
-				case CompressionProviderType.Zip:
-					provider = new ZipCompressionProvider(configurationProvider);
-					break;
-			}
-			return provider;
-		}
-
-		public static IEncryptionProvider GetEncryptionProvider(EncryptionProviderType providerType, IConfigurationProvider configurationProvider)
-		{
-			IEncryptionProvider provider = new PassThroughEncryptionProvider();
-			switch (providerType)
-			{
-				case EncryptionProviderType.AES256:
-					provider = new AES256EncryptionProvider(configurationProvider);
-					break;
-			}
-			return provider;
 		}
 	}
 }

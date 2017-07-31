@@ -22,15 +22,21 @@ namespace BinaryStorageOptions.Proxy.Providers
 
 		public List<string> GetFileNames()
 		{
-			return Directory.EnumerateFiles(configuration.Folder).Where(fn => Path.GetExtension(fn) != MetaDataFileExtension).ToList();
+			return Directory.EnumerateFiles(configuration.Folder).Where(fn => Path.GetExtension(fn) != MetaDataFileExtension).Select(fn => fn.Replace(configuration.Folder + "\\", "")).ToList();
 		}
 
 		public bool Create(Guid id, string filename, byte[] data, Dictionary<string, string> metaData = null)
 		{
 			Dictionary<string, string> alteredMetaData = metaData;
-			if (metaData != null)
+			if (metaData != null && metaData.Count > 0)
 			{
-				File.WriteAllText(GetFullPath(id, filename, MetaDataFileExtension), JsonConvert.SerializeObject(metaData));
+				string metaDataPath = GetFullPath(id, filename, MetaDataFileExtension);
+				if (File.Exists(metaDataPath))
+				{
+					File.SetAttributes(metaDataPath, FileAttributes.Normal);
+				}
+				File.WriteAllText(metaDataPath, JsonConvert.SerializeObject(metaData));
+				File.SetAttributes(metaDataPath, FileAttributes.Hidden | FileAttributes.ReadOnly);
 			}
 			File.WriteAllBytes(GetFullPath(id, filename), data);
 			return true;
@@ -38,13 +44,19 @@ namespace BinaryStorageOptions.Proxy.Providers
 
 		public bool Delete(Guid id, string filename)
 		{
+			string metaDataPath = GetFullPath(id, filename, MetaDataFileExtension);
+			if (File.Exists(metaDataPath))
+			{
+				File.SetAttributes(metaDataPath, FileAttributes.Normal);
+				File.Delete(metaDataPath);
+			}
 			File.Delete(GetFullPath(id, filename));
 			return true;
 		}
 
 		public byte[] Read(Guid id, string filename, out Dictionary<string, string> metaData)
 		{
-			metaData = null;
+			metaData = new Dictionary<string, string>();
 			if (File.Exists(GetFullPath(id, filename, MetaDataFileExtension)))
 			{
 				metaData = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(GetFullPath(id, filename, MetaDataFileExtension)));
@@ -77,7 +89,7 @@ namespace BinaryStorageOptions.Proxy.Providers
 			{
 				return Path.Combine(configuration.Folder, GetFullFilename(id, filename));
 			}
-			return Path.Combine(configuration.Folder, GetFullFilename(id, filename), extension);
+			return Path.Combine(configuration.Folder, GetFullFilename(id, filename)) + extension;
 		}
 	}
 }

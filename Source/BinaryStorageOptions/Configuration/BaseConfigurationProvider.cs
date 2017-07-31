@@ -32,6 +32,8 @@ namespace BinaryStorageOptions.Configuration
 					return new AzureBlobStorageConfiguration(configProvider, configurationForEntityType);
 				case StorageProviderType.AzureFile:
 					return new AzureFileStorageConfiguration(configProvider, configurationForEntityType);
+				case StorageProviderType.Proxy:
+					return new ProxyStorageConfiguration(configProvider, configurationForEntityType);
 			}
 			return null;
 		}

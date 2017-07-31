@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace BinaryStorageOptions.Proxy.Controllers
 {
-	[RoutePrefix("Annotations")]
+	[RoutePrefix("annotations")]
 	public class AnnotationsController : BaseController
 	{
 		public AnnotationsController() 

@@ -7,4 +7,8 @@
 	<Setting key="AES256EncryptionKey" value="" />
 	<!-- If "Encryption" = "AES256" then this is the salt used to hash encryption key with. -->
 	<Setting key="AES256EncryptionKeySalt" value="" />
+	<!-- When "Provider Type" = "Proxy", this is the username used to authenticate.	Leave empty/remove for Windows auth on same network / defaultcredentials. -->
+	<Setting key="ProxyUsername" value="" />
+	<!-- When "Provider Type" = "Proxy",  this is the password used to authenticate. Leave empty/remove for Windows auth on same network / defaultcredentials. -->
+	<Setting key="ProxyPassword" value="" />
 </Settings>

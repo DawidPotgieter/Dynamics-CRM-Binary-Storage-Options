@@ -1,5 +1,6 @@
 ﻿using BinaryStorageOptions.Configuration;
 using BinaryStorageOptions.Providers;
+using BinaryStorageOptions.Proxy.BasicAuthenticationModule;
 using BinaryStorageOptions.Proxy.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using System.Web.Http;
 namespace BinaryStorageOptions.Proxy.Controllers
 {
 	[Authorize]
+	//[HardCodedBasicAuthentication]
 	public abstract class BaseController : ApiController
 	{
 		private IStorageProvider storageProvider;
@@ -56,10 +58,10 @@ namespace BinaryStorageOptions.Proxy.Controllers
 
 		[HttpPut]
 		[Route("Create")]
-		public async Task<bool> Create(Guid id, string filename)
+		public async Task<bool> Create(Guid id, string filename, [FromUri] Dictionary<string, string> metaData)
 		{
 			byte[] data = await Request.Content.ReadAsByteArrayAsync();
-			return storageProvider.Create(id, filename, data);
+			return storageProvider.Create(id, filename, data, metaData);
 		}
 
 		[HttpDelete]

@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace BinaryStorageOptions.Proxy.Controllers
 {
-	[RoutePrefix("Attachments")]
+	[RoutePrefix("activitymimeattachments")]
 	public class AttachmentsController : BaseController
 	{
 		public AttachmentsController() 
