@@ -3,10 +3,12 @@ Also comes with a migration tool for existing binaries.
 
 Here are some features :
 
-* Runs in sandbox mode. Tested with CRM2015 on premise, and I know it works with CRM online (2016). Might also work down to CRM2011 if you recompile it against the 2011 sdk.
-* Supports either Azure Blob storage or Azure File storage. Easy to add more providers
-* Supports client side (crm server) compression and encryption (v4.1+).
-* Works seamlessly with existing attachments/annotations. If the binary data is available in CRM, that is used
+* Runs in sandbox mode. Tested with CRM 2011,2013 (if you recompile with older SDK),2015 on premise, Dynamics 365.
+* Supports either Azure Blob storage or Azure File storage. Easy to add more providers.  For instance, the (currently) undocumented "Proxy" provider (V5 branch) also provides a local network FileShare option as the repository.
+* Supports client side (crm server) compression and encryption (v4.1+), in addition to all the server side encryption schemes.
+* Automatic failover if using RAGRS blob storage
+* Works seamlessly with existing attachments/annotations. If the binary data is available in CRM, that is used as is. If not, it returns the external version.
 * Nobody will know, UI/api works exactly as before :)
+* Includes a handy migration tool to move existing annotation/attachments out of your CRM db
 
 See Wiki on how to configure setup the different versions and why you'd use said version.
