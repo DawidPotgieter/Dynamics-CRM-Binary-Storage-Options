@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Client;
 using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
@@ -94,8 +95,59 @@ namespace BinaryStorageOptions
 			}
 			catch (Exception ex)
 			{
+				if (entity.LogicalName == CrmConstants.AttachmentEntityName)
+				{
+					//Search for other attacments pointing to the same attachment id (not the activitymimeattachment).
+					var otherData = SearchForAttachment(service, storageProvider, entity, documentBodyAttributeKey, fileNameAttributeKey);
+					if (otherData != null && entity.Attributes.ContainsKey(fileNameAttributeKey))
+					{
+						if (entity.Attributes.ContainsKey(CrmConstants.FileSizeKey) &&
+								(int)entity.Attributes[CrmConstants.FileSizeKey] == GenericConstants.EmptyBodyContentDataLength)
+						{
+							entity.Attributes[CrmConstants.FileSizeKey] = otherData.Item1;
+						}
+
+						if (entity.Attributes.ContainsKey(documentBodyAttributeKey) && 
+								(string)entity.Attributes[documentBodyAttributeKey] == GenericConstants.EmptyBodyContent)
+						{
+							entity.Attributes[documentBodyAttributeKey] = Convert.ToBase64String(otherData.Item2);
+						}
+						return;
+					}
+				}
+
 				throw new InvalidPluginExecutionException(OperationStatus.Failed, ex.ToString());
 			}
+		}
+
+		private Tuple<int, byte[]> SearchForAttachment(IOrganizationService service, Providers.IBinaryStorageProvider storageProvider, Entity entity, string documentBodyAttributeKey, string fileNameAttributeKey)
+		{
+			//This is a little bit of a hack, but there really isn't very many good options.
+			//When there's an error loading an email attachment, there's a good chance that crm is requesting a duplicate of an existing attachment, as that's how it seems to be stored.
+			//So, go through the list of activitymimeattachments pointing to the same attachment id, and see if you can get the binary data using that.
+			using (OrganizationServiceContext context = new OrganizationServiceContext(service))
+			{
+				var attachmentId = ((EntityReference)(from ama in context.CreateQuery(CrmConstants.AttachmentEntityName)
+																							where ((EntityReference)ama[CrmConstants.AttachmentEntityId]).Id == entity.Id
+																							select ama[CrmConstants.AttachmentId]).FirstOrDefault()).Id;
+				var activitymimeattachmentIds = (from ama in context.CreateQuery(CrmConstants.AttachmentEntityName)
+																				 where (Guid)ama[CrmConstants.AttachmentId] == attachmentId
+																				 select ama[CrmConstants.AttachmentEntityId])
+																				  .ToList();
+
+				foreach (Guid activitymimeattachmentId in activitymimeattachmentIds)
+				{
+					try
+					{
+						int fileSize = storageProvider.GetFileSize(activitymimeattachmentId, (string)entity.Attributes[fileNameAttributeKey]);
+						byte[] data = storageProvider.Read(activitymimeattachmentId, (string)entity.Attributes[fileNameAttributeKey]);
+
+						return new Tuple<int, byte[]>(fileSize, data);
+					}
+					catch { }
+				}
+			}
+			return null;
 		}
 	}
 }
