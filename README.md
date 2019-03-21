@@ -11,4 +11,5 @@ Here are some features :
 * Nobody will know, UI/api works exactly as before :)
 * Includes a handy migration tool to move existing annotation/attachments out of your CRM db
 
-See Wiki on how to configure setup the different versions and why you'd use said version.
+See <a href="https://github.com/DawidPotgieter/Dynamics-CRM-Binary-Storage-Options/wiki">Wiki</a> on how to configure setup the different versions and why you'd use said version.
+The <a href="https://github.com/DawidPotgieter/Dynamics-CRM-Binary-Storage-Options/wiki/FAQ">FAQ</a> page is also a very good read ;P
