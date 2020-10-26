@@ -37,6 +37,15 @@ namespace BinaryStorageOptions.Configuration
 			}
 		}
 
+		public string StorageProviderEndpointSuffix 
+		{
+            get
+            {
+				return GetStorageProviderEndpointSuffix(GetSettingValue(ProviderEndpointSuffix));
+
+			}
+		}
+
 		public CompressionProviderType CompressionProviderType
 		{
 			get

@@ -6,6 +6,7 @@ namespace BinaryStorageOptions.Configuration
 	{
 		IConfiguration Configuration { get; }
 		StorageProviderType StorageProviderType { get; }
+		string StorageProviderEndpointSuffix { get; }
 		CompressionProviderType CompressionProviderType { get; }
 		EncryptionProviderType EncryptionProviderType { get; }
 		string GetSettingValue(string key);

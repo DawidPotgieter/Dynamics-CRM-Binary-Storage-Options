@@ -10,11 +10,11 @@ namespace Azure.Storage
 {
 	public class BlobStorageHelper : StorageHelper
 	{
-		private const string blobStorageUriTemplate = "https://{0}.blob.core.windows.net/";
-		private const string blobStorageSecondaryUriTemplate = "https://{0}-secondary.blob.core.windows.net/";
+		private const string blobStorageUriTemplate = "https://{0}.blob.{1}/";
+		private const string blobStorageSecondaryUriTemplate = "https://{0}-secondary.blob.{1}/";
 
-		public BlobStorageHelper(string account, string key) :
-			base(blobStorageUriTemplate, blobStorageSecondaryUriTemplate, account, key)
+		public BlobStorageHelper(string account, string endpointSuffix, string key) :
+			base(blobStorageUriTemplate, blobStorageSecondaryUriTemplate, account, endpointSuffix, key)
 		{
 		}
 

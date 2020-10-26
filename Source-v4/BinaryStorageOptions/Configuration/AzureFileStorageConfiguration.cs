@@ -19,6 +19,14 @@
 			}
 		}
 
+		public string EndpointSuffix
+		{
+			get
+			{
+				return configurationProvider.StorageProviderEndpointSuffix;
+			}
+		}
+
 		public string StorageKey
 		{
 			get

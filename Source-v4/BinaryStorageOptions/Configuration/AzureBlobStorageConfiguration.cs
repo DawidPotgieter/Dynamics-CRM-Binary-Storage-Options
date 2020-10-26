@@ -10,12 +10,20 @@
 			this.configurationProvider = configurationProvider;
 			this.entityType = entityType;
 		}
-
+		
 		public string StorageAccount
 		{
 			get
 			{
 				return configurationProvider.GetSettingValue("StorageAccount");
+			}
+		}
+
+		public string EndpointSuffix
+		{
+			get
+			{
+				return configurationProvider.StorageProviderEndpointSuffix;
 			}
 		}
 

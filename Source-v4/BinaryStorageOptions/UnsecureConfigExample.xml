@@ -3,6 +3,11 @@
 	<Setting key="ConfigurationProviderType" value="PluginStepConfigurationProvider"/>
 	<!-- Valid values are defined in StorageProviderType enum. -->
 	<Setting key="Provider Type" value="AzureFile" />
+	<!-- Optional endpoint suffix. No leading . or trailing /
+		 For commercial Azure leave empty of use core.windows.net
+		 and for Azure Government use core.usgovcloudapi.net	
+	-->
+	<Setting key="ProviderEndpointSuffix" value="core.windows.net" />
 	<!-- 
 		Valid values are defined in CompressionProviderType enum.  
 		Defaults to "PassThrough" if it doesn't exist 
