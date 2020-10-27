@@ -10,12 +10,12 @@ namespace Azure.Storage
 {
 	public class FileStorageHelper : StorageHelper
 	{
-		private const string fileStorageUriTemplate = "https://{0}.file.core.windows.net/";
-		private const string fileStorageSecondaryUriTemplate = "https://{0}-secondary.file.core.windows.net/";
+		private const string fileStorageUriTemplate = "https://{0}.file.{1}/";
+		private const string fileStorageSecondaryUriTemplate = "https://{0}-secondary.file.{1}/";
 		private const int bufferSize = 1024 * 1024 * 4; //File storage max buffer size is 4mb
 
-		public FileStorageHelper(string account, string key) :
-			base(fileStorageUriTemplate, fileStorageSecondaryUriTemplate, account, key)
+		public FileStorageHelper(string account, string endpointSuffix, string key) :
+			base(fileStorageUriTemplate, fileStorageSecondaryUriTemplate, account, endpointSuffix, key)
 		{
 		}
 

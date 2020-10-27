@@ -12,7 +12,9 @@ namespace BinaryStorageOptions.Configuration
 	public class BaseConfigurationProvider
 	{
 		private const int DefaultMaxFileSize = 1024 * 1024 * 5; //Default CRM value
+		private const string DefaultProviderEndpointSuffix = "core.windows.net";
 		protected const string ProviderTypeKey = "Provider Type";
+		protected const string ProviderEndpointSuffix = "ProviderEndpointSuffix";
 		protected const string CompressionTypeKey = "Compression";
 		protected const string EncryptionTypeKey = "Encryption";
 		protected IOrganizationService organizationService;
@@ -47,6 +49,11 @@ namespace BinaryStorageOptions.Configuration
 			{
 			}
 			return providerType;
+		}
+
+		protected string GetStorageProviderEndpointSuffix(string storageProviderEndpointSuffix) 
+		{
+			return string.IsNullOrWhiteSpace(storageProviderEndpointSuffix) ? DefaultProviderEndpointSuffix : storageProviderEndpointSuffix;
 		}
 
 		protected CompressionProviderType GetCompressionProviderType(string compressionProviderValue)
@@ -93,7 +100,7 @@ namespace BinaryStorageOptions.Configuration
 				}
 				return maxFileSize.Value;
 			}
-		}
+		}	
 
 		private int GetAttachmentSizeLimit()
 		{

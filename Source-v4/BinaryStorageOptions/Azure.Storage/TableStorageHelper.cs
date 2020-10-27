@@ -11,8 +11,8 @@ namespace Azure.Storage
 {
 	public class TableStorageHelper : StorageHelper
 	{
-		private const string tableStorageUriTemplate = "https://{0}.table.core.windows.net/";
-		private const string tableStorageSecondaryUriTemplate = "https://{0}-secondary.table.core.windows.net/";
+		private const string tableStorageUriTemplate = "https://{0}.table.{1}/";
+		private const string tableStorageSecondaryUriTemplate = "https://{0}-secondary.table.{1}/";
 
 		/*
 			{
@@ -29,8 +29,8 @@ namespace Azure.Storage
 		private Regex fileSizeJsonRegex = new Regex(@"""FileSize"":(?<FileSize>\d*)", RegexOptions.Compiled);
 		private Regex queryJsonRegex = new Regex(@"""RowKey"":""(?<RowKey>[a-z0-9-]*)""", RegexOptions.Compiled);
 
-		public TableStorageHelper(string account, string key) :
-			base(tableStorageUriTemplate, tableStorageSecondaryUriTemplate, account, key, true)
+		public TableStorageHelper(string account, string endpointSuffix, string key) :
+			base(tableStorageUriTemplate, tableStorageSecondaryUriTemplate, account, endpointSuffix, key, true)
 		{
 		}
 

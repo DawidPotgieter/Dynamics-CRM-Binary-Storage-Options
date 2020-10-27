@@ -16,7 +16,7 @@ namespace BinaryStorageOptions.Providers
 		public AzureBlobStorageProvider(AzureBlobStorageConfiguration configuration)
 		{
 			this.configuration = configuration;
-			blobStorageHelper = new BlobStorageHelper(configuration.StorageAccount, configuration.StorageKey);
+			blobStorageHelper = new BlobStorageHelper(configuration.StorageAccount, configuration.EndpointSuffix, configuration.StorageKey);
 		}
 
 		public List<string> GetFileNames()

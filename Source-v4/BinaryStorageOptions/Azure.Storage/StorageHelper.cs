@@ -24,6 +24,7 @@ namespace Azure.Storage
 		private string uriTemplate;
 		private string secondaryUriTemplate;
 		private string account;
+		private string endpointSuffix;
 		private string key;
 		private int retryCounter;
 		private bool isTableStorage;
@@ -37,24 +38,25 @@ namespace Azure.Storage
 			HEAD,
 		}
 
-		public StorageHelper(string uriTemplate, string secondaryUriTemplate, string account, string key, bool isTableStorage = false) 
+		public StorageHelper(string uriTemplate, string secondaryUriTemplate, string account, string endpointSuffix, string key, bool isTableStorage = false) 
 		{
 			this.uriTemplate = uriTemplate;
 			this.secondaryUriTemplate = secondaryUriTemplate;
 			this.account = account;
+			this.endpointSuffix = endpointSuffix;
 			this.key = key;
 			this.isTableStorage = isTableStorage;
 		}
 
-		public StorageHelper(string uriTemplate, string account, string key, bool isTableStorage = false)
-			: this(uriTemplate, null, account, key, isTableStorage)
+		public StorageHelper(string uriTemplate, string account, string endpointSuffix, string key, bool isTableStorage = false)
+			: this(uriTemplate, null, account, endpointSuffix, key, isTableStorage)
 		{
 		}
 
 		protected HttpResponseMessage ExecuteRestRequestWithFailover(HtmlVerb verb, string resourceUri, HttpContent content = null, Dictionary<string, string> additionalHeaders = null)
 		{
 			resourceUri = PreEncodeUrl(resourceUri);
-			Uri fullUri = new Uri(new Uri(string.Format(uriTemplate, account), UriKind.Absolute), new Uri(resourceUri, UriKind.Relative));
+			Uri fullUri = new Uri(new Uri(string.Format(uriTemplate, account, endpointSuffix), UriKind.Absolute), new Uri(resourceUri, UriKind.Relative));
 			try
 			{
 				retryCounter = 0;
@@ -64,7 +66,7 @@ namespace Azure.Storage
 			{
 				if (!string.IsNullOrWhiteSpace(secondaryUriTemplate))
 				{
-					fullUri = new Uri(new Uri(string.Format(secondaryUriTemplate, account), UriKind.Absolute), new Uri(resourceUri, UriKind.Relative));
+					fullUri = new Uri(new Uri(string.Format(secondaryUriTemplate, account, endpointSuffix), UriKind.Absolute), new Uri(resourceUri, UriKind.Relative));
 					retryCounter = 0;
 					return ExecuteRestRequestWithRetry(verb, fullUri, content, additionalHeaders);
 				}
@@ -74,7 +76,7 @@ namespace Azure.Storage
 
 		protected HttpResponseMessage ExecuteRestRequest(HtmlVerb verb, string resourceUri, HttpContent content = null, Dictionary<string, string> additionalHeaders = null)
 		{
-			Uri fullUri = new Uri(new Uri(string.Format(uriTemplate, account), UriKind.Absolute), new Uri(PreEncodeUrl(resourceUri), UriKind.Relative));
+			Uri fullUri = new Uri(new Uri(string.Format(uriTemplate, account, endpointSuffix), UriKind.Absolute), new Uri(PreEncodeUrl(resourceUri), UriKind.Relative));
 			retryCounter = 0;
 			return ExecuteRestRequestWithRetry(verb, fullUri, content, additionalHeaders);
 		}
