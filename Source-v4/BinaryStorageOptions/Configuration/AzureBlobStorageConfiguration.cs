@@ -34,6 +34,14 @@
 				return configurationProvider.GetSettingValue("StorageKey");
 			}
 		}
+		
+		public bool IsSasToken
+		{
+			get
+			{
+				return configurationProvider.AuthenticationType == Providers.AuthenticationType.SASToken;
+			}
+		}
 
 		public string Container
 		{

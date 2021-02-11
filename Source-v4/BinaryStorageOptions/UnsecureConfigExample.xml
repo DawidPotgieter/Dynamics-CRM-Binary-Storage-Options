@@ -25,6 +25,11 @@
 		Valid values are defined in EncryptionProviderType enum.  
 		Defaults to "PassThrough" if it doesn't exist 
 	-->
+	<Setting key="AuthenticationType" value="AccessKey" />
+	<!--
+		Valid values are defined in AuthenticationType enum.
+		Defaults to "AccessKey" if it doesn't exist
+	-->
 	<Setting key="Encryption" value="PassThrough" />
 	<!-- 
 		Valid values are defined in System.IO.Compression.CompressionLevel 

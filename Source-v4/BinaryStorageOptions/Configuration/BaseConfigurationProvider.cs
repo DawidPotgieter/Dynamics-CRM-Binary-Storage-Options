@@ -17,6 +17,7 @@ namespace BinaryStorageOptions.Configuration
 		protected const string ProviderEndpointSuffix = "ProviderEndpointSuffix";
 		protected const string CompressionTypeKey = "Compression";
 		protected const string EncryptionTypeKey = "Encryption";
+		protected const string AuthenticationTypeKey = "AuthenticationType";
 		protected IOrganizationService organizationService;
 		protected string configurationForEntityType;
 
@@ -54,6 +55,19 @@ namespace BinaryStorageOptions.Configuration
 		protected string GetStorageProviderEndpointSuffix(string storageProviderEndpointSuffix) 
 		{
 			return string.IsNullOrWhiteSpace(storageProviderEndpointSuffix) ? DefaultProviderEndpointSuffix : storageProviderEndpointSuffix;
+		}
+		
+		protected AuthenticationType GetAuthenticationType(string authenticationTypeValue)
+		{
+			AuthenticationType authenticationType = Providers.AuthenticationType.AccessKey;
+			try
+			{
+				authenticationType = (AuthenticationType)Enum.Parse(typeof(AuthenticationType), authenticationTypeValue);
+			}
+			catch
+			{
+			}
+			return authenticationType;
 		}
 
 		protected CompressionProviderType GetCompressionProviderType(string compressionProviderValue)

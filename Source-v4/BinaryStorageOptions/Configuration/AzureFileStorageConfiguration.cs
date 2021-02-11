@@ -35,6 +35,14 @@
 			}
 		}
 
+		public bool IsSasToken
+        {
+			get
+            {
+				return configurationProvider.AuthenticationType == Providers.AuthenticationType.SASToken;
+            }
+        }
+
 		public string Share
 		{
 			get

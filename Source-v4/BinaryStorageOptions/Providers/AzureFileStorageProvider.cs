@@ -16,7 +16,7 @@ namespace BinaryStorageOptions.Providers
 		public AzureFileStorageProvider(AzureFileStorageConfiguration configuration)
 		{
 			this.configuration = configuration;
-			fileStorageHelper = new FileStorageHelper(configuration.StorageAccount, configuration.EndpointSuffix, configuration.StorageKey);
+			fileStorageHelper = new FileStorageHelper(configuration.StorageAccount, configuration.EndpointSuffix, configuration.StorageKey, configuration.IsSasToken);
 		}
 
 		public List<string> GetFileNames()
