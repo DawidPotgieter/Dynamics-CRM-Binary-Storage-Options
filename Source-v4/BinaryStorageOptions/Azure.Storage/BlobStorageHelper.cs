@@ -13,8 +13,8 @@ namespace Azure.Storage
 		private const string blobStorageUriTemplate = "https://{0}.blob.{1}/";
 		private const string blobStorageSecondaryUriTemplate = "https://{0}-secondary.blob.{1}/";
 
-		public BlobStorageHelper(string account, string endpointSuffix, string key) :
-			base(blobStorageUriTemplate, blobStorageSecondaryUriTemplate, account, endpointSuffix, key)
+		public BlobStorageHelper(string account, string endpointSuffix, string key, bool isSasToken) :
+			base(blobStorageUriTemplate, blobStorageSecondaryUriTemplate, account, endpointSuffix, key, isSasToken)
 		{
 		}
 

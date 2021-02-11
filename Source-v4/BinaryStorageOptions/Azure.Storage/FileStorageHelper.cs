@@ -14,8 +14,8 @@ namespace Azure.Storage
 		private const string fileStorageSecondaryUriTemplate = "https://{0}-secondary.file.{1}/";
 		private const int bufferSize = 1024 * 1024 * 4; //File storage max buffer size is 4mb
 
-		public FileStorageHelper(string account, string endpointSuffix, string key) :
-			base(fileStorageUriTemplate, fileStorageSecondaryUriTemplate, account, endpointSuffix, key)
+		public FileStorageHelper(string account, string endpointSuffix, string key, bool isSasToken) :
+			base(fileStorageUriTemplate, fileStorageSecondaryUriTemplate, account, endpointSuffix, key, isSasToken)
 		{
 		}
 

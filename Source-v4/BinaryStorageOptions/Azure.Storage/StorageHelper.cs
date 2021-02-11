@@ -25,7 +25,8 @@ namespace Azure.Storage
 		private string secondaryUriTemplate;
 		private string account;
 		private string endpointSuffix;
-		private string key;
+		private bool isSasToken;
+		private string key;	// this will be treated as either the Access Key or the SAS Token depending on the value of isSasToken
 		private int retryCounter;
 		private bool isTableStorage;
 
@@ -38,18 +39,19 @@ namespace Azure.Storage
 			HEAD,
 		}
 
-		public StorageHelper(string uriTemplate, string secondaryUriTemplate, string account, string endpointSuffix, string key, bool isTableStorage = false) 
+		public StorageHelper(string uriTemplate, string secondaryUriTemplate, string account, string endpointSuffix, string key, bool isSasToken, bool isTableStorage = false) 
 		{
 			this.uriTemplate = uriTemplate;
 			this.secondaryUriTemplate = secondaryUriTemplate;
 			this.account = account;
 			this.endpointSuffix = endpointSuffix;
 			this.key = key;
+			this.isSasToken = isSasToken;
 			this.isTableStorage = isTableStorage;
 		}
 
-		public StorageHelper(string uriTemplate, string account, string endpointSuffix, string key, bool isTableStorage = false)
-			: this(uriTemplate, null, account, endpointSuffix, key, isTableStorage)
+		public StorageHelper(string uriTemplate, string account, string endpointSuffix, string key, bool isSasToken, bool isTableStorage = false)
+			: this(uriTemplate, null, account, endpointSuffix, key, isSasToken, isTableStorage)
 		{
 		}
 
@@ -101,6 +103,7 @@ namespace Azure.Storage
 		private HttpResponseMessage ExecuteRestRequest(HtmlVerb verb, Uri fullUri, HttpContent content = null, Dictionary<string, string> additionalHeaders = null)
 		{
 			DateTime dt = DateTime.UtcNow;
+			Uri finalUri = new Uri(fullUri.OriginalString);
 
 			using (HttpClient client = new HttpClient())
 			{
@@ -114,51 +117,71 @@ namespace Azure.Storage
 					}
 				}
 
-				string canonicalizedHeaders = GetCanonicalizedHeaders(client.DefaultRequestHeaders, (content != null ? content.Headers : null));
-				string canonicalizedResource = GetCanonicalizedResource(fullUri);
-				string contentLengthHeader = (content != null && content.Headers.Any(h => h.Key == "Content-Length") ? content.Headers.First(h => h.Key == "Content-Length").Value.First() : "");
-				if (contentLengthHeader == "0") contentLengthHeader = "";
-				string md5Header = (content != null && content.Headers.Any(h => h.Key == "Content-MD5") ? content.Headers.First(h => h.Key == "Content-MD5").Value.First() : "");
-				string sharedKey;
-				if (!isTableStorage)
+				if (isSasToken)
 				{
-					sharedKey = string.Format(skaTemplate,
-					verb.ToString(),
-					"", "",
-					contentLengthHeader,
-					md5Header,
-					"", "", "", "", "", "", "",
-					canonicalizedHeaders,
-					canonicalizedResource);
+					// eliminate the ? if it exists at the start of the key, so it will always be added on to the current query
+					string modifiedKey = key.StartsWith("?") ? key.Remove(0, 1) : key;
+
+					UriBuilder uriBuilder = new UriBuilder(finalUri);
+					uriBuilder.Query = uriBuilder.Query == string.Empty ? $"{modifiedKey}" : $"{uriBuilder.Query}&{modifiedKey}";
+					finalUri = uriBuilder.Uri;
 				}
 				else
 				{
-					string contentTypeHeader = (content != null && content.Headers.Any(h => h.Key == "Content-Type") ? content.Headers.First(h => h.Key == "Content-Type").Value.First() : "");
-					sharedKey = string.Format(skaTableTemplate,
+					string canonicalizedHeaders = GetCanonicalizedHeaders(client.DefaultRequestHeaders, (content != null ? content.Headers : null));
+					string canonicalizedResource = GetCanonicalizedResource(finalUri);
+					string contentLengthHeader = (content != null && content.Headers.Any(h => h.Key == "Content-Length") ? content.Headers.First(h => h.Key == "Content-Length").Value.First() : "");
+					if (contentLengthHeader == "0") contentLengthHeader = "";
+					string md5Header = (content != null && content.Headers.Any(h => h.Key == "Content-MD5") ? content.Headers.First(h => h.Key == "Content-MD5").Value.First() : "");
+
+					string sharedKey;
+					if (!isTableStorage)
+					{
+						sharedKey = string.Format(skaTemplate,
 						verb.ToString(),
+						"", "",
+						contentLengthHeader,
 						md5Header,
-						contentTypeHeader,
-						dt.ToString("R"),
+						"", "", "", "", "", "", "",
+						canonicalizedHeaders,
 						canonicalizedResource);
+					}
+					else
+					{
+						string contentTypeHeader = (content != null && content.Headers.Any(h => h.Key == "Content-Type") ? content.Headers.First(h => h.Key == "Content-Type").Value.First() : "");
+						sharedKey = string.Format(skaTableTemplate,
+							verb.ToString(),
+							md5Header,
+							contentTypeHeader,
+							dt.ToString("R"),
+							canonicalizedResource);
+					}
+
+					string signedSharedKey = SignSka(sharedKey, key, account);
+
+					client.DefaultRequestHeaders.Add("Authorization", signedSharedKey);
 				}
 
-				string signedSharedKey = SignSka(sharedKey, key, account);
-
-				client.DefaultRequestHeaders.Add("Authorization", signedSharedKey);
-
-				switch (verb)
+				try
 				{
-					case HtmlVerb.HEAD:
-						return client.SendAsync(new HttpRequestMessage(HttpMethod.Head, fullUri)).Result;
-					case HtmlVerb.GET:
-						return client.GetAsync(fullUri).Result;
-					case HtmlVerb.PUT:
-						return client.PutAsync(fullUri, content).Result;
-					case HtmlVerb.POST:
-						return client.PostAsync(fullUri, content).Result;
-					case HtmlVerb.DELETE:
-						return client.DeleteAsync(fullUri).Result;
+					switch (verb)
+					{
+                        case HtmlVerb.HEAD:
+                            return client.SendAsync(new HttpRequestMessage(HttpMethod.Head, finalUri)).Result;
+                        case HtmlVerb.GET:
+                            return client.GetAsync(finalUri).Result;
+                        case HtmlVerb.PUT:
+                            return client.PutAsync(finalUri, content).Result;
+                        case HtmlVerb.POST:
+                            return client.PostAsync(finalUri, content).Result;
+                        case HtmlVerb.DELETE:
+                            return client.DeleteAsync(finalUri).Result;
+                    }
 				}
+				catch (Exception ex)
+				{
+					throw new Microsoft.Xrm.Sdk.InvalidPluginExecutionException(ex.Message);
+                }
 			}
 			return null;
 		}

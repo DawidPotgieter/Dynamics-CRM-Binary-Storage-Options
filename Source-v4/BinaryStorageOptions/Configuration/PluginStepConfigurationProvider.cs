@@ -17,8 +17,8 @@ namespace BinaryStorageOptions.Configuration
 		public PluginStepConfigurationProvider(IOrganizationService organizationService, string configurationForEntityType, string unsecurePluginStepConfiguration, string securePluginStepConfiguration) :
 			base(organizationService, configurationForEntityType)
 		{
-			unsecureDocument = XDocument.Parse(unsecurePluginStepConfiguration);
-			secureDocument = XDocument.Parse(securePluginStepConfiguration);
+			unsecureDocument = XDocument.Parse(unsecurePluginStepConfiguration.Replace("&", "&amp;"));
+			secureDocument = XDocument.Parse(securePluginStepConfiguration.Replace("&", "&amp;"));
 		}
 
 		public IConfiguration Configuration
@@ -36,6 +36,14 @@ namespace BinaryStorageOptions.Configuration
 				return GetStorageProviderType(GetSettingValue(ProviderTypeKey));
 			}
 		}
+
+		public AuthenticationType AuthenticationType
+        {
+			get
+            {
+				return GetAuthenticationType(GetSettingValue(AuthenticationTypeKey));
+            }
+        }
 
 		public string StorageProviderEndpointSuffix 
 		{
@@ -73,7 +81,7 @@ namespace BinaryStorageOptions.Configuration
 			{
 				return null;
 			}
-			return setting.Attribute("value").Value;
+			return setting.Attribute("value").Value.Replace("&amp;", "&");
 		}
 	}
 }

@@ -29,8 +29,8 @@ namespace Azure.Storage
 		private Regex fileSizeJsonRegex = new Regex(@"""FileSize"":(?<FileSize>\d*)", RegexOptions.Compiled);
 		private Regex queryJsonRegex = new Regex(@"""RowKey"":""(?<RowKey>[a-z0-9-]*)""", RegexOptions.Compiled);
 
-		public TableStorageHelper(string account, string endpointSuffix, string key) :
-			base(tableStorageUriTemplate, tableStorageSecondaryUriTemplate, account, endpointSuffix, key, true)
+		public TableStorageHelper(string account, string endpointSuffix, string key, bool isSasToken) :
+			base(tableStorageUriTemplate, tableStorageSecondaryUriTemplate, account, endpointSuffix, key, isSasToken, true)
 		{
 		}
 
